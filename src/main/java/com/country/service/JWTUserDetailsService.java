@@ -32,6 +32,10 @@ public class JWTUserDetailsService implements UserDetailsService {
 	}
 	
 	public DAOUser save(UserDTO user) {
+		if (userDao.findByUsername(user.getUsername()) != null) {
+			throw new UsernameNotFoundException("User name already exist: " + user.getUsername());
+		}
+
 		DAOUser newUser = new DAOUser();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));

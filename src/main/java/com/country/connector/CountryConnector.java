@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CountryConnector implements Serializable {
         try {
             if (code != null) {
                 String API_KEY = "63e8ac7e6e45774d3f9c2ea828c33a42";
+                String testURL = "http://data.fixer.io/api/latest?access_key=" + API_KEY;
                 String requestURL = "http://data.fixer.io/api/latest?access_key=" + API_KEY + "&base=" + code + "" + "&symbols=IDR";
                 String method = "GET", data = "", dataType = JavaUrlConnector.DATA_TYPE_JSON;
                 Map headers = new HashMap();
@@ -32,11 +34,11 @@ public class CountryConnector implements Serializable {
 
                 if ((Boolean) currencyMap.get("success")) {
                     Map rateIdr = (Map) currencyMap.get("rates");
-                    rateIDR.put("rateIdr", rateIdr.get("IDR"));
+                    rateIDR.put("rateIdr", new BigDecimal(rateIdr.get("IDR").toString())); /*use paid version to get IDR exchange rate*/
                 }
                 else {
                     Map error = (Map) currencyMap.get("error");
-                    rateIDR.put("error", error.get("type"));
+                    rateIDR.put("error", error.get("type")); /*test api restricted to read IDR rate by base currency*/
                 }
             }
         }
