@@ -9,35 +9,32 @@ import java.math.BigDecimal;
 @Table(name = "audit")
 public class DAOAudit {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     @JsonIgnore
-    private Long userId;
+    private String username;
 
     @Column
-    @JsonIgnore
     private String code;
 
     @Column
-    @JsonIgnore
     private String name;
 
     @Column
-    @JsonIgnore
     private String symbol;
 
     @Column
-    @JsonIgnore
     private BigDecimal exchangeRateIdr;
 
-    public Long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCode() {

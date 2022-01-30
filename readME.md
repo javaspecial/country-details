@@ -52,4 +52,37 @@ Header: header key and token should be Authorization: Bearer eyJhbGciOiJIUzUxMiJ
 Response:
 ---------
 
-Return success results as per request country name.
+{
+  "full_name" : "BD",
+  "population" : "16 crore",
+  "currencies" : { }
+}.
+
+Step 3: 
+=======
+URL: http://localhost:8080/audit (GET Request)
+
+Header: header key and token should be Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3VudHJ5IiwiZXhwIjoxNjQzNTA0Mjc5LCJpYXQiOjE2NDM0ODYyNzl9.bWtM_ZE3GUAMydMpI_8_ZSyDeI03fGZJMTm6IB6-PL_MeEoP2ipJ7xMJMXqABxthYm6VgYcKK8niRRSt4SQ5bg
+
+Body: Should be valid username- like
+{
+    "username": "country",
+}
+
+Response:
+---------
+
+[
+    {
+        "code": null,
+        "name": null,
+        "symbol": null,
+        "exchangeRateIdr": null
+    },
+    {
+        "code": null,
+        "name": null,
+        "symbol": null,
+        "exchangeRateIdr": null
+    }
+]

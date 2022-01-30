@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 
 public class AuditDTO {
 
-    private Long userId;
+    private String username;
     private String code;
     private String name;
     private String symbol;
     private BigDecimal exchangeRateIdr;
 
-    public Long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {

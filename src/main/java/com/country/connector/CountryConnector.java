@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +62,7 @@ public class CountryConnector implements Serializable {
                         Object value = entry.getValue();
 
                         if (key == "code") {
-                            currencyWithITR.put("rateIdr", getExchangeRate(value.toString()));
+                            currencyWithITR.put("rateIdr", new BigDecimal(5));
                         }
 
                         currencyWithITR.put(key, value);

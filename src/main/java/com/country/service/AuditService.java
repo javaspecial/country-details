@@ -6,9 +6,7 @@ import com.country.model.DAOAudit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AuditService {
@@ -16,22 +14,18 @@ public class AuditService {
     @Autowired
     private AuditDao auditDao;
 
-    public List<DAOAudit> auditByUserId(AuditDTO audit) {
-        List<DAOAudit> daoAudit = auditDao.findByUserId(audit.getUserId());
+    public List<DAOAudit> auditByUsername(AuditDTO audit) {
+        List<DAOAudit> daoAudit = auditDao.findByUsername(audit.getUsername());
         return daoAudit;
     }
 
     public void saveAudit(AuditDTO auditDTO) {
-        Long userId = auditDTO.getUserId();
-
-        if (userId != null) {
-            DAOAudit audit = new DAOAudit();
-            audit.setUserId(userId);
-            audit.setCode(auditDTO.getCode());
-            audit.setName(auditDTO.getName());
-            audit.setSymbol(auditDTO.getSymbol());
-            audit.setExchangeRateIdr(auditDTO.getExchangeRateIdr());
-            auditDao.save(audit);
-        }
+        DAOAudit audit = new DAOAudit();
+        audit.setUsername(auditDTO.getUsername());
+        audit.setCode(auditDTO.getCode());
+        audit.setName(auditDTO.getName());
+        audit.setSymbol(auditDTO.getSymbol());
+        audit.setExchangeRateIdr(auditDTO.getExchangeRateIdr());
+        auditDao.save(audit);
     }
 }

@@ -2,6 +2,8 @@ package com.country.utils;
 
 import com.country.model.AuditDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -17,12 +19,15 @@ public class CountryUtils implements Serializable {
         AuditDTO audit = new AuditDTO();
 
         if (details != null && details.size() != 0) {
-            audit.setUserId((Long) details.get("userId"));
             audit.setCode(details.get("code").toString());
             audit.setName(details.get("name").toString());
             audit.setSymbol(details.get("symbol").toString());
             audit.setExchangeRateIdr((BigDecimal) details.get("rateIdr"));
         }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Map<String, Object> authenticationMap = new ObjectMapper().convertValue(authentication.getPrincipal(), Map.class);
+        audit.setUsername(authenticationMap.get("username").toString());
 
         return audit;
     }

@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface AuditDao extends CrudRepository<DAOAudit, Integer> {
 
-    List<DAOAudit> findByUserId(Long userId);
+    List<DAOAudit> findByUsername(String username);
 
 }
