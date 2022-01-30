@@ -74,10 +74,10 @@ Response:
 
 [
     {
-        "code": null,
-        "name": null,
+        "code": BDT,
+        "name": BDT,
         "symbol": null,
-        "exchangeRateIdr": null
+        "exchangeRateIdr": 2
     },
     {
         "code": null,
