@@ -8,6 +8,7 @@ public class AuditDTO {
     private String code;
     private String name;
     private String symbol;
+    private String error;
     private BigDecimal exchangeRateIdr;
 
     public String getUsername() {
@@ -40,6 +41,15 @@ public class AuditDTO {
 
     public void setExchangeRateIdr(BigDecimal exchangeRateIdr) {
         this.exchangeRateIdr = exchangeRateIdr;
+    }
+
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getCode() {

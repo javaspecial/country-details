@@ -27,6 +27,9 @@ public class DAOAudit {
     private String symbol;
 
     @Column
+    private String error;
+
+    @Column
     private BigDecimal exchangeRateIdr;
 
     public String getUsername() {
@@ -59,6 +62,14 @@ public class DAOAudit {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     public BigDecimal getExchangeRateIdr() {

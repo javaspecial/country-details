@@ -26,6 +26,7 @@ public class AuditService {
         audit.setName(auditDTO.getName());
         audit.setSymbol(auditDTO.getSymbol());
         audit.setExchangeRateIdr(auditDTO.getExchangeRateIdr());
+        audit.setError(auditDTO.getError());
         auditDao.save(audit);
     }
 }

@@ -22,7 +22,13 @@ public class CountryUtils implements Serializable {
             audit.setCode(details.get("code").toString());
             audit.setName(details.get("name").toString());
             audit.setSymbol(details.get("symbol").toString());
-            audit.setExchangeRateIdr((BigDecimal) details.get("rateIdr"));
+
+            if (details.get("error") != null) {
+                audit.setError(details.get("error").toString());
+            }
+            else {
+                audit.setExchangeRateIdr((BigDecimal) details.get("rateIdr"));
+            }
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -9,6 +9,8 @@ currencies queried so far by users for audit purposes.
 
 Use this API by following steps...
 
+Install JDK 1.8....
+
 Note: I have used postman for testing
 
 Step 1:
@@ -52,11 +54,18 @@ Header: header key and token should be Authorization: Bearer eyJhbGciOiJIUzUxMiJ
 Response:
 ---------
 
-{
-  "full_name" : "BD",
-  "population" : "16 crore",
-  "currencies" : { }
-}.
+[
+       {
+          "full_name" : "Bangladesh",
+          "population" : 164689383,
+              "currencies" : {
+                "symbol" : "৳",
+                "code" : "BDT",
+                "name" : "Bangladeshi taka",
+                "error" : "base_currency_access_restricted"
+              }
+      }
+]
 
 Step 3: 
 =======
@@ -74,15 +83,17 @@ Response:
 
 [
     {
-        "code": BDT,
-        "name": BDT,
-        "symbol": null,
-        "exchangeRateIdr": 2
+         "code": "BDT",
+         "name": "Bangladeshi taka",
+         "symbol": "৳",
+         "error": "base_currency_access_restricted",
+         "exchangeRateIdr": null
     },
     {
-        "code": null,
-        "name": null,
-        "symbol": null,
-        "exchangeRateIdr": null
+         "code": "USD",
+         "name": "United States dollar",
+         "symbol": "$",
+         "error": "base_currency_access_restricted",
+         "exchangeRateIdr": null
     }
 ]

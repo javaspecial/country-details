@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,26 +15,36 @@ import java.util.Map;
 public class CountryConnector implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;
 
-    public static String getExchangeRate(String code) {
+    public static Map getExchangeRate(String code) {
+        Map rateIDR = new HashMap();
+
         try {
             if (code != null) {
-                String requestURL = "https://.com/v2/name/"+code+"?fullText=true";
+                String API_KEY = "63e8ac7e6e45774d3f9c2ea828c33a42";
+                String requestURL = "http://data.fixer.io/api/latest?access_key=" + API_KEY + "&base=" + code + "" + "&symbols=IDR";
                 String method = "GET", data = "", dataType = JavaUrlConnector.DATA_TYPE_JSON;
                 Map headers = new HashMap();
 
                 Map responseMap = JavaUrlConnector.callUrl(requestURL, method, data, dataType, headers);
-                ObjectMapper mapper = new ObjectMapper();
-                Object jsonObject = new JSONArray(responseMap.get("response").toString()).get(0);
-                HashMap<String, Object> countryMap = mapper.readValue(((JSONObject) jsonObject).toString(), HashMap.class);
+                HashMap<String, Object> currencyMap = new ObjectMapper().readValue(responseMap.get("response").toString(), HashMap.class);
 
-                code = "5";
+                rateIDR.put("success", currencyMap.get("success"));
+
+                if ((Boolean) currencyMap.get("success")) {
+                    Map rateIdr = (Map) currencyMap.get("rates");
+                    rateIDR.put("rateIdr", rateIdr.get("IDR"));
+                }
+                else {
+                    Map error = (Map) currencyMap.get("error");
+                    rateIDR.put("error", error.get("type"));
+                }
             }
         }
         catch (Exception e) {
-            code = e.getMessage();
+            rateIDR.put("error", "Currency details loading error occurred");
             System.out.println(e.getMessage());
         }
-        return code;
+        return rateIDR;
     }
 
     public static Map getCountryDetails(String name) {
@@ -62,7 +71,13 @@ public class CountryConnector implements Serializable {
                         Object value = entry.getValue();
 
                         if (key == "code") {
-                            currencyWithITR.put("rateIdr", new BigDecimal(5));
+                            Map rates = getExchangeRate(value.toString());
+                            if ((Boolean)rates.get("success")) {
+                                currencyWithITR.put("rateIdr", rates.get("rateIdr"));
+                            }
+                            else {
+                                currencyWithITR.put("error", rates.get("error"));
+                            }
                         }
 
                         currencyWithITR.put(key, value);
@@ -78,7 +93,7 @@ public class CountryConnector implements Serializable {
             response = containerMap;
         }
         catch (Exception exc) {
-            response.put("error", exc.getMessage());
+            response.put("error", "Country details loading error occurred");
             System.out.println(exc.fillInStackTrace());
         }
 
